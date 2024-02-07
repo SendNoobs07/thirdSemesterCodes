@@ -51,7 +51,7 @@ public:
             int uInput;
             cout << "Enter a number to enque: ";
             cin >> uInput;
-            if (uInput >= queue[front]) // IF USER GIVES NUMBER THAT IS GREATER OR EQUAL TO USER'S INPUT
+            if (uInput >= queue[front]) // IF USER GIVES NUMBER THAT IS GREATER OR EQUAL THAN FRONT ELEMENT
             {
                 rear++;
                 for (int i = rear; i > front; i--)
@@ -62,7 +62,7 @@ public:
                 cout << uInput << " will be enqued." << endl;
                 nOE++;
             }
-            else if (uInput <= queue[rear]) // IF USER GIVES LEAST NUMBER AS INPUT
+            else if (uInput <= queue[rear]) // IF USER'S INPUT IS LESS THAN REAR ELEMENT
             {
                 rear++;
                 queue[rear] = uInput;
