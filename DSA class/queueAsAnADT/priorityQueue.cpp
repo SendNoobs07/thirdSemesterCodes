@@ -2,7 +2,7 @@
 #define MAX_LENGTH 10
 using namespace std;
 
-class PriorityQueue
+class Queue
 {
 private:
     int front = 0, rear = -1, queue[MAX_LENGTH];
@@ -46,12 +46,22 @@ public:
         {
             cout << "Can't enque queue is already full." << endl;
         }
+        else if(front==0&&rear==-1)
+        {
+            int uInput;
+            cout << "Enter a number to enque: ";
+            cin >> uInput;
+            rear++;
+            queue[front]=uInput;
+            cout<<uInput<<" has been enqued."<<endl;
+            nOE++;
+        }
         else
         {
             int uInput;
             cout << "Enter a number to enque: ";
             cin >> uInput;
-            if (uInput >= queue[front]) // IF USER GIVES NUMBER THAT IS GREATER OR EQUAL THAN FRONT ELEMENT
+            if (uInput >= queue[front]) // IF USER GIVES NUMBER THAT IS GREATER OR EQUAL TO USER'S INPUT
             {
                 rear++;
                 for (int i = rear; i > front; i--)
@@ -62,13 +72,22 @@ public:
                 cout << uInput << " will be enqued." << endl;
                 nOE++;
             }
-            else if (uInput <= queue[rear]) // IF USER'S INPUT IS LESS THAN REAR ELEMENT
+            else if (uInput <= queue[rear]) // IF USER GIVES LEAST NUMBER AS INPUT
             {
                 rear++;
                 queue[rear] = uInput;
                 cout << uInput << " will be enqued." << endl;
                 nOE++;
             }
+            else if(nOE==2)// WHEN NO ELEMENT IS BETWEEN TWO ELEMENTS BUT STILL NEW ELEMENT HAS TO BE IN BETWEEN
+            {
+            	rear++;
+            	queue[rear]=queue[rear-1];
+            	queue[rear-1]=uInput;
+            	cout << uInput << " will be enqued." << endl;
+                nOE++;
+                cout<<"case 7??"<<endl;
+			}
             else // IF USER GIVES AN INPUT THAT IS TO BE KEPT IN BETWEEN DUE TO PRIORITY
             {
                 rear++;
@@ -86,6 +105,7 @@ public:
                 }
                 cout << uInput << " will be enqued." << endl;
                 nOE++;
+                cout<<endl<<"else case"<<endl;
             }
         }
     }
@@ -156,11 +176,11 @@ public:
                 cout << "Invalid input please try again..." << endl;
                 break;
             }
-        } while (operationNumber != 5);
+        } while (operationNumber != 7);
     }
 };
 int main()
 {
-    PriorityQueue p1;
-    p1.mainProcess();
+    Queue q1;
+    q1.mainProcess();
 }
