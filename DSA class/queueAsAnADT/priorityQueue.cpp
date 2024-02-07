@@ -176,7 +176,7 @@ public:
                 cout << "Invalid input please try again..." << endl;
                 break;
             }
-        } while (operationNumber != 7);
+        } while (operationNumber != 5);
     }
 };
 int main()
