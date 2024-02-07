@@ -106,7 +106,7 @@ public:
             cout << "3 ) Make queue empty" << endl;
             cout << "4 ) Check if queue is full" << endl;
             cout << "5 ) Check if queue is empty" << endl;
-            cout << "6 ) Traverse through stack" << endl;
+            cout << "6 ) Traverse through queue" << endl;
             cout << "7 ) Exit" << endl;
             cin >> operationNumber;
 
