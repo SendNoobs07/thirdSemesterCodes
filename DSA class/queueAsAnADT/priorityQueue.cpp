@@ -2,7 +2,7 @@
 #define MAX_LENGTH 10
 using namespace std;
 
-class Queue
+class PriorityQueue
 {
 private:
     int front = 0, rear = -1, queue[MAX_LENGTH];
@@ -161,6 +161,6 @@ public:
 };
 int main()
 {
-    Queue q1;
-    q1.mainProcess();
+    PriorityQueue p1;
+    p1.mainProcess();
 }
