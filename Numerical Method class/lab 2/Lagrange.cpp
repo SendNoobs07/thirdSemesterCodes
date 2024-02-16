@@ -1,58 +1,52 @@
+//Lagrange Interpolation
 #include<iostream>
-#include<cmath>
 using namespace std;
+float upper(int i,float X[],float Y[],float x,int counter){
+    float result=1;
+    for(int steps=0;steps<counter;steps++){
+        if(i==steps){
+        continue;
+        } else{
+            result=result*(x-X[steps]);
+        }
+    }
+    cout<<"Upper: "<<result<<endl;
+    return result;
+}
 
-class Lagrange{
-	private:
-		float x[6]={1,2,5,8,10,12};
-		float fx[6]={0.841,1.600,0.65,3.068,3.144,1.94}; 
-		float c=8.35;//c is the value of x
-		float y;
-	public:
-		Lagrange(){
-			cout<<"Initial values are: "<<endl
-				<<"X : ";
-			for(int i=0;i<6;i++){
-				cout<<x[i]<<", ";
-			}
-			cout<<endl<<"Y : ";
-			for(int i=0;i<6;i++){
-				cout<<fx[i]<<", ";
-			}
-		}
-		float partCalculator(int fxn=0){
-			float result;
-			float upperPart=1;
-			for(int i=0;i<6;i++){
-				if(fxn==i){
-					continue;
-				}else{
-					upperPart*=(c-x[i]);
-				}
-			}
-			cout<<endl<<endl<<"Upper value of part"<<fxn+1<<": "<<upperPart;
-			float lowerPart=1;
-			for(int i=0;i<6;i++){
-				if(fxn==i){
-					continue;
-				}else{
-					lowerPart*=(x[fxn]-x[i]);
-				}
-			}
-			cout<<endl<<"Lower value of part"<<fxn+1<<": "<<lowerPart;
-			cout<<endl<<"fx[fxn] of part"<<fxn+1<<": "<<fx[fxn];
-			return result=fx[fxn]*upperPart/lowerPart;
-		}
-};
+float lower(int i,float X[],float Y[],float x,int counter){
+    float result=1;                   
+    x=X[i];
+    for(int steps=0;steps<counter;steps++){
+        if(i==steps){
+            continue;
+        } else{
+            result=result*(x-X[steps]);
+        }
+    }
+    cout<<"Lower: "<<result<<endl;
+    return result;
+}
 
 int main(){
-	Lagrange l1;
-	int uIn;
-	cout<<endl<<"Enter max length of data: ";
-	cin>>uIn;
-	float fValue=0;
-	for(int i=0;i<uIn;i++){
-		fValue+=l1.partCalculator(i);
-	}
-	cout<<endl<<"Final value is: "<<fValue;
+    int counter;
+    cout<<"How many points do you want to enter?";
+    cin>>counter;
+    float x,y;
+    cout<<"Enter the value for calculation: ";
+    cin>>x;
+    float X[counter],Y[counter];
+    for(int i=0;i<counter;i++){
+        cout<<"value of x"<<i<<": ";
+        cin>>X[i];
+        cout<<"value of y"<<i<<": ";
+        cin>>Y[i];
+    }
+    
+    for(int i=0;i<counter;i++){
+        y=y+(upper(i,X,Y,x,counter)/lower(i,X,Y,x,counter))*Y[i];  
+    }
+    
+    cout<<"Final Output: "<<y;
+    return 0;
 }
