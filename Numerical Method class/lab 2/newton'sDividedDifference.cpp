@@ -1,49 +1,59 @@
-#include <iostream>
-#define MAX_LENGTH 5
+//Central
+#include<iostream>
+//#include<cmath>
 using namespace std;
-
-class DividedDifference
-{
-protected:
-    int steps, gap, nOD;
-    float Arr[MAX_LENGTH + 1][MAX_LENGTH] = {
-        {1, 2, 3, 4, 5},
-        {1, 1.4142, 1.7321, 2, 2.2361},
-        {0},
-        {0},
-        {0},
-        {0}};
-
-public:
-    DividedDifference()
-    {
-        steps = 0;
-        gap = 0;
-        nOD = 0;
+void calculate(float Ynew[],float X[],int i,int counter){
+    for(int k=0;k<counter-i-1;k++){
+        Ynew[k]=(Ynew[k+1]-Ynew[k])/(X[k+1+i]-X[k]);
+       // cout<<Ynew[k]<<", ";
     }
+    cout<<endl;
+}
 
-    void mainProcess()
-    {
-        for (int i = 2; i <= MAX_LENGTH; i++)
-        {
-        	steps=MAX_LENGTH - i;
-        	nOD = i-1;	
-            gap = nOD;
-            cout << "Value of d" << nOD << "f will be : "<<endl ;
-            for (int j = 0; j <= steps; j++)
-            {
-            	float upperValue=Arr[i - 1][j + 1] - Arr[i - 1][j];
-            	float lowerValue=Arr[0][gap + j] - Arr[0][j];
-                Arr[i][j] = upperValue/lowerValue;
-                cout<<j+1<<" ) "<<Arr[i][j]<<endl;
-            }
-            cout<<endl;
-        }
+float Hero(float x,float X[],int i){
+    if(i==-1){
+        return 1;
+    }else{
+        return (x-X[i])*Hero(x,X,i-1);
     }
-};
+}
 
-int main()
-{
-    DividedDifference d1;
-    d1.mainProcess();
+float formula(float data[],int counter, float X[],float Y[],float x){
+    float y=Y[0];
+    for(int i=0;i<counter;i++){
+        //cout<<y<<"+"<<data[i]<<"*"<<Hero(x,X,i)<<"== ";
+        y=y+data[i]*Hero(x,X,i);
+        //cout<<y<<endl;
+    }
+    return y;
+}
+
+
+int main(){
+    int counter;
+    cout<<"How many points do you want to enter?";
+    cin>>counter;
+    float x,y,s,h;
+    cout<<"Enter the value for calculation: ";
+    cin>>x;
+
+    float X[counter],Y[counter],Ynew[counter],data[counter];
+    for(int i=0;i<counter;i++){
+        cout<<"value of x"<<i<<": ";
+        cin>>X[i];
+        cout<<"value of y"<<i<<": ";
+        cin>>Y[i];
+        Ynew[i]=Y[i];
+    }
+    data[0]=Y[0];
+    for(int i=0;i<counter-1;i++){
+        calculate(Ynew,X,i,counter);
+        data[i]=Ynew[0];
+       // cout<<data[i]<<endl;
+    }
+    
+    y=formula(data,counter,X,Y,x);
+    cout<<"Hence, f("<<x<<")= "<<y;
+    
+    return 0;
 }
