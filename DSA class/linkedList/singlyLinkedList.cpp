@@ -77,22 +77,54 @@ public:
         newNode->data = x;
     }
 
-    void deleteFromList(int x)
+    void deleteFromList(int index)
     {
         Node *temp = head;
-
-        if (temp->data == x) // incase if the element is at first the while loop below won't work
+        if (index == 0)
         {
-            head = temp->next;
-            return;
+            head = head->next;
         }
         else
         {
-            while (temp->next->data != x)
+            int i = 1;
+            while (i < index)
+            {
+                temp = temp->next;
+                i++;
+            }
+            cout<<temp->next->data<<" was deleted"<<endl;
+            temp->next = temp->next->next;
+        }
+    }
+
+    void deleteFromFront()
+    {
+        if (head == NULL)
+        {
+            cout << "Void deletion" << endl;
+        }
+        else
+        {
+            cout << head->data << " was deleted" << endl;
+            head = head->next;
+        }
+    }
+
+    void deleteFromBack()
+    {
+        if (head == NULL)
+        {
+            cout << "Void deletion" << endl;
+        }
+        else
+        {
+            Node *temp = head;
+            while (temp->next->next != NULL)
             {
                 temp = temp->next;
             }
-            temp->next=temp->next->next;
+            cout<<temp->next->data<<" was deleted"<<endl;
+            temp->next = NULL;
         }
     }
 
@@ -144,28 +176,94 @@ public:
         }
         cout << "NULL" << endl;
     }
+
+    void mainProcess()
+    {
+        // insertAtFront(5);
+        // insertAtBack(6);
+        // insertAtBack(7);
+        // insertAtBack(8);
+        // insertAtBack(9);
+        // insertAtBack(10);
+        // traverse();
+        // insertAtFront(4);
+        // traverse();
+        // deleteFromList(1);
+        // traverse();
+        // insertBetween(5,1);
+        // traverse();
+
+        int uInput;
+        do
+        {
+            cout << "Choose an operation from below: " << endl;
+            cout << "1 ) Insert at front" << endl
+                 << "2 ) Insert at back" << endl
+                 << "3 ) Insert in between" << endl
+                 << "4 ) Traverse" << endl
+                 << "5 ) Delete from front" << endl
+                 << "6 ) Delete from back" << endl
+                 << "7 ) Delete in between" << endl
+                 << "8 ) Exit the program" << endl;
+            cin >> uInput;
+            switch (uInput)
+            {
+            case 1:
+                int valuef;
+                cout << "Enter a number to input: ";
+                cin >> valuef;
+                insertAtFront(valuef);
+                break;
+
+            case 2:
+                int valuel;
+                cout << "Enter a number to input: ";
+                cin >> valuel;
+                insertAtBack(valuel);
+                break;
+
+            case 3:
+                int valueb, pos;
+                cout << "Enter a number to input: ";
+                cin >> valueb;
+                cout << "Enter a position : ";
+                cin >> pos;
+                insertBetween(valueb, pos);
+                break;
+
+            case 4:
+                traverse();
+                break;
+
+            case 5:
+                deleteFromFront();
+                break;
+
+            case 6:
+                deleteFromBack();
+                break;
+
+            case 7:
+                int ui;
+                cout << "Enter an index to delete: ";
+                cin >> ui;
+                deleteFromList(ui);
+                break;
+
+            case 8:
+                cout << "Program is exiting..." << endl;
+                break;
+
+            default:
+                cout << "Invalid input" << endl;
+                break;
+            }
+        } while (uInput != 8);
+    }
 };
 
 int main()
 {
-    SinglyLinkedList l1;
-    l1.insertAtFront(5);
-    l1.insertAtFront(6);
-    l1.insertAtFront(7);
-    l1.insertAtFront(8);
-    l1.insertAtBack(69);
-    l1.insertAtBack(29);
-    l1.insertBetween(55, 6);
-    l1.traverse();
-    l1.search(69);
-    l1.search(68);
-    l1.search(7);
-    l1.deleteFromList(69);
-    l1.traverse();
-    l1.deleteFromList(8);
-    l1.traverse();
-    l1.deleteFromList(5);
-    l1.traverse();
-    l1.deleteFromList(6);
-    l1.traverse();
+    SinglyLinkedList s1;
+    s1.mainProcess();
 }
