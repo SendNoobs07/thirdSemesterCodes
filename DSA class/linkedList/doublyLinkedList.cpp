@@ -61,7 +61,7 @@ public:
             newNode->previous = tail; // connecting new node with previous node
             tail->next = newNode;     // connecting tail node with new node
 
-            newNode->data = x;// assigning value to newNode's data
+            newNode->data = x; // assigning value to newNode's data
 
             tail = newNode; // finally pointing tail to newNode
         }
@@ -103,33 +103,70 @@ public:
     void traversePrevious()
     {
         Node *temp = tail;
+        cout << "NULL";
         while (temp != NULL)
         {
-            cout << temp->data << "<-";
+            cout << "<-" << temp->data;
             temp = temp->previous;
         }
-        cout << "NULL";
+        cout<<endl;
     }
 
     void mainProcess()
     {
-        insertAtFront(9);
-        insertAtBack(8);
-        insertAtBack(6);
-        insertAtBack(5);
-        insertAtBack(4);
+        int uInput;
+        do
+        {
+            cout << "Choose an operation from below: " << endl;
+            cout << "1 ) Insert at front" << endl
+                 << "2 ) Insert at back" << endl
+                 << "3 ) Insert in between" << endl
+                 << "4 ) Traverse from front" << endl
+                 << "5 ) Traverse from back" << endl
+                 << "6 ) Exit the program" << endl;
+            cin >> uInput;
+            switch (uInput)
+            {
+            case 1:
+                int valuef;
+                cout << "Enter a number to input: ";
+                cin >> valuef;
+                insertAtFront(valuef);
+                break;
 
-        cout<<endl<<"Before inserting in between: "<<endl<<"Next: ";
-        traverseNext();
-        cout<<endl<<"Previous: ";
-        traversePrevious();
+            case 2:
+                int valuel;
+                cout << "Enter a number to input: ";
+                cin >> valuel;
+                insertAtBack(valuel);
+                break;
 
-        insertBetween(7, 2);
+            case 3:
+                int valueb, pos;
+                cout << "Enter a number to input: ";
+                cin >> valueb;
+                cout << "Enter a position : ";
+                cin >> pos;
+                insertBetween(valueb, pos);
+                break;
 
-        cout<<endl<<"After inserting in between: "<<endl<<"Next: ";
-        traverseNext();
-        cout<<endl<<"Previous: ";
-        traversePrevious();
+            case 4:
+                traverseNext();
+                break;
+
+            case 5:
+                traversePrevious();
+                break;
+
+            case 6:
+                cout << "Program is exiting..." << endl;
+                break;
+
+            default:
+                cout << "Invalid input" << endl;
+                break;
+            }
+        } while (uInput != 6);
     }
 };
 
