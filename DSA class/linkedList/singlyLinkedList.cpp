@@ -68,7 +68,7 @@ public:
 
         while (i < ind - 1)
         {
-            cout << "i : " << i << ", temp points to : " << temp->data << endl;
+            // cout << "i : " << i << ", temp points to : " << temp->data << endl;
             temp = temp->next;
             i++;
         }
