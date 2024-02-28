@@ -90,7 +90,6 @@ void SinglyCircularLinkedList::deleteFromFront()
         {
             head = NULL;
             tail = NULL;
-            cout << deletedNode->data << " was deleted" << endl;
         }
         else
         {
