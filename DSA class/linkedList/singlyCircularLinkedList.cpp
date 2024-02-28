@@ -119,12 +119,12 @@ void SinglyCircularLinkedList::deleteFromBack()
         }
         else
         {
-            while (temp->next->next != NULL) // traversing through the list
+            while (temp->next != tail) // traversing through the list
             {
                 temp = temp->next;
             }
             deletedNode = temp->next;
-            temp->next = NULL;
+            temp->next = head;
             tail = temp;
         }
         cout << deletedNode->data << " was deleted" << endl;
