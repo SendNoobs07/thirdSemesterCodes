@@ -24,6 +24,7 @@ public:
     void insertAtBack(int);
     void insertBetween(int, int);
     void traverse();
+    void traverseFromBetween(int index);
     void mainProcess();
     void deleteFromList(int index);
     void deleteFromFront();
@@ -173,7 +174,7 @@ void SinglyCircularLinkedList::insertBetween(int value, int index)
     Node *newNode = new Node(value);
     if (checkHead() == 0) // 0 means null
     {
-        head = newNode;
+        head = newNode; 
         tail = newNode;
     }
     else
@@ -189,10 +190,12 @@ void SinglyCircularLinkedList::insertBetween(int value, int index)
         {
             cout << "Invalid position." << endl;
             delete newNode; // Free memory if insertion fails
-            return;
         }
-        newNode->next = temp->next;
-        temp->next = newNode;
+        else
+        {
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
     }
     cout << newNode->data << " has been inserted at position " << index << endl;
 }
@@ -217,6 +220,33 @@ void SinglyCircularLinkedList::traverse()
     }
 }
 
+void SinglyCircularLinkedList::traverseFromBetween(int index) // this function is to check the circular property
+{
+    if (checkHead() == 0) // incase the list is empty
+    {
+        cout << "Can't traverse the list is empty." << endl;
+        return;
+    }
+    else
+    {
+        cout << "The contents of the list from index " << index << " are: " << endl;
+        Node *temp = head;
+        int i = 1;
+        while (i <= index) // traversing till we reach desired index
+        {
+            temp = temp->next;
+            i++;
+        }
+        Node *indPoint = temp; // storing temp which points to desired index for stopping the loop
+        do                     // traversing from the index to
+        {
+            cout << temp->data << "->";
+            temp = temp->next;
+        } while (temp != indPoint);
+        cout << "Finish" << endl;
+    }
+}
+
 void SinglyCircularLinkedList::mainProcess()
 {
     int uInput;
@@ -227,10 +257,11 @@ void SinglyCircularLinkedList::mainProcess()
              << "2 ) Insert at back" << endl
              << "3 ) Insert in between" << endl
              << "4 ) Traverse" << endl
-             << "5 ) Delete from front" << endl
-             << "6 ) Delete from back" << endl
-             << "7 ) Delete in between" << endl
-             << "8 ) Exit the program" << endl;
+             << "5 ) Traverse from between" << endl
+             << "6 ) Delete from front" << endl
+             << "7 ) Delete from back" << endl
+             << "8 ) Delete in between" << endl
+             << "9 ) Exit the program" << endl;
         cin >> uInput;
         switch (uInput)
         {
@@ -249,12 +280,12 @@ void SinglyCircularLinkedList::mainProcess()
             break;
 
         case 3:
-            int valueb, pos;
+            int valueb, pos1;
             cout << "Enter a number to input: ";
             cin >> valueb;
             cout << "Enter a position : ";
-            cin >> pos;
-            insertBetween(valueb, pos);
+            cin >> pos1;
+            insertBetween(valueb, pos1);
             break;
 
         case 4:
@@ -262,21 +293,28 @@ void SinglyCircularLinkedList::mainProcess()
             break;
 
         case 5:
-            deleteFromFront();
+            int pos2;
+            cout << "Enter a position : ";
+            cin >> pos2;
+            traverseFromBetween(pos2);
             break;
 
         case 6:
-            deleteFromBack();
+            deleteFromFront();
             break;
 
         case 7:
+            deleteFromBack();
+            break;
+
+        case 8:
             int ui;
             cout << "Enter an index to delete: ";
             cin >> ui;
             deleteFromList(ui);
             break;
 
-        case 8:
+        case 9:
             cout << "Program is exiting..." << endl;
             break;
 
@@ -284,7 +322,7 @@ void SinglyCircularLinkedList::mainProcess()
             cout << "Invalid input" << endl;
             break;
         }
-    } while (uInput != 8);
+    } while (uInput != 9);
 }
 
 int main()
