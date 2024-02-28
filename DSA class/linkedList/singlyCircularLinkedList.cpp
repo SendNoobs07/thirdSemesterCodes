@@ -25,11 +25,111 @@ public:
     void insertBetween(int, int);
     void traverse();
     void mainProcess();
+    void deleteFromList(int index);
+    void deleteFromFront();
+    void deleteFromBack();
 };
 
 bool SinglyCircularLinkedList::checkHead()
 {
     return (head != NULL) ? 1 : 0;
+}
+
+void SinglyCircularLinkedList::deleteFromList(int index)
+{
+    Node *temp = head;
+    if (index == 0) // if user gives front index
+    {
+        if (tail == head) // incase there is only one element in list
+        {
+            tail = NULL;
+            head = NULL;
+            delete temp;
+        }
+        else // if there is more than one
+        {
+            head = head->next;
+            delete temp;
+        }
+    }
+    else
+    {
+        int i = 1;
+        while (i < index) // traversing through the list
+        {
+            temp = temp->next;
+            i++;
+        }
+
+        Node *deletedNode = temp->next; // creating a new pointer to point towards the deleted node
+        if (deletedNode->next == NULL)  // incase if the user gives index which is the final node of list
+        {
+            tail = temp;        // updating tail to temp which is at 2nd last of the list
+            temp->next = NULL; // updating next of 2nd last element to null
+        }
+        else
+        {
+            temp->next = temp->next->next; // else refers to when the element is in between
+        }
+        cout << deletedNode->data << " was deleted" << endl;
+        delete deletedNode;
+    }
+}
+
+void SinglyCircularLinkedList::deleteFromFront()
+{
+    if (head == NULL)
+    {
+        cout << "Void deletion" << endl;
+    }
+    else
+    {
+        Node *deletedNode = head;
+        if (head->next == NULL) // incase there is only one element
+        {
+            head = NULL;
+            tail = NULL;
+            cout << deletedNode->data << " was deleted" << endl;
+        }
+        else
+        {
+            head = head->next; // updating head to second element
+            tail->next = head; // updating next of last element to new head
+        }
+        cout << deletedNode->data << " was deleted" << endl;
+        delete deletedNode;
+    }
+}
+
+void SinglyCircularLinkedList::deleteFromBack()
+{
+    if (head == NULL)//incase the list is empty
+    {
+        cout << "Void deletion" << endl;
+    }
+    else
+    {
+        Node *temp = head;
+        Node *deletedNode = temp;
+
+        if (head->next == NULL)//incase there is only one element in the list
+        {
+            head = NULL;
+            tail = NULL;
+        }
+        else
+        {
+            while (temp->next->next != NULL)//traversing through the list
+            {
+                temp = temp->next;
+            }
+            deletedNode = temp->next;
+            temp->next = NULL;
+            tail = temp;
+        }
+        cout << deletedNode->data << " was deleted" << endl;
+        delete deletedNode;
+    }
 }
 
 void SinglyCircularLinkedList::insertAtFront(int value)
@@ -39,7 +139,7 @@ void SinglyCircularLinkedList::insertAtFront(int value)
     {
         head = newNode;
         tail = head;
-        newNode->next=newNode;
+        newNode->next = newNode;
     }
     else
     {
