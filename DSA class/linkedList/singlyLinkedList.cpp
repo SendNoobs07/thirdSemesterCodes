@@ -83,6 +83,7 @@ public:
         if (index == 0)
         {
             head = head->next;
+            delete temp;
         }
         else
         {
@@ -92,8 +93,9 @@ public:
                 temp = temp->next;
                 i++;
             }
-            cout<<temp->next->data<<" was deleted"<<endl;
+            Node *deletedNode = temp->next;
             temp->next = temp->next->next;
+            delete deletedNode;
         }
     }
 
@@ -123,7 +125,7 @@ public:
             {
                 temp = temp->next;
             }
-            cout<<temp->next->data<<" was deleted"<<endl;
+            cout << temp->next->data << " was deleted" << endl;
             temp->next = NULL;
         }
     }
