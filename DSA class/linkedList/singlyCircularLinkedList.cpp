@@ -87,7 +87,7 @@ void SinglyCircularLinkedList::insertBetween(int value, int index)
         newNode->next = temp->next;
         temp->next = newNode;
     }
-    cout << newNode->data << " has been inserted at back" << endl;
+    cout << newNode->data << " has been inserted" << endl;
 }
 
 void SinglyCircularLinkedList::traverse()
