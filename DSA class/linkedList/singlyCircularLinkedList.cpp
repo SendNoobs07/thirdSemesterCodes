@@ -64,7 +64,7 @@ void SinglyCircularLinkedList::deleteFromList(int index)
         Node *deletedNode = temp->next; // creating a new pointer to point towards the deleted node
         if (deletedNode->next == NULL)  // incase if the user gives index which is the final node of list
         {
-            tail = temp;        // updating tail to temp which is at 2nd last of the list
+            tail = temp;       // updating tail to temp which is at 2nd last of the list
             temp->next = NULL; // updating next of 2nd last element to null
         }
         else
@@ -103,7 +103,7 @@ void SinglyCircularLinkedList::deleteFromFront()
 
 void SinglyCircularLinkedList::deleteFromBack()
 {
-    if (head == NULL)//incase the list is empty
+    if (head == NULL) // incase the list is empty
     {
         cout << "Void deletion" << endl;
     }
@@ -112,14 +112,14 @@ void SinglyCircularLinkedList::deleteFromBack()
         Node *temp = head;
         Node *deletedNode = temp;
 
-        if (head->next == NULL)//incase there is only one element in the list
+        if (head->next == NULL) // incase there is only one element in the list
         {
             head = NULL;
             tail = NULL;
         }
         else
         {
-            while (temp->next->next != NULL)//traversing through the list
+            while (temp->next->next != NULL) // traversing through the list
             {
                 temp = temp->next;
             }
@@ -227,7 +227,10 @@ void SinglyCircularLinkedList::mainProcess()
              << "2 ) Insert at back" << endl
              << "3 ) Insert in between" << endl
              << "4 ) Traverse" << endl
-             << "5 ) Exit the program" << endl;
+             << "5 ) Delete from front" << endl
+             << "6 ) Delete from back" << endl
+             << "7 ) Delete in between" << endl
+             << "8 ) Exit the program" << endl;
         cin >> uInput;
         switch (uInput)
         {
@@ -259,6 +262,21 @@ void SinglyCircularLinkedList::mainProcess()
             break;
 
         case 5:
+            deleteFromFront();
+            break;
+
+        case 6:
+            deleteFromBack();
+            break;
+
+        case 7:
+            int ui;
+            cout << "Enter an index to delete: ";
+            cin >> ui;
+            deleteFromList(ui);
+            break;
+
+        case 8:
             cout << "Program is exiting..." << endl;
             break;
 
@@ -266,7 +284,7 @@ void SinglyCircularLinkedList::mainProcess()
             cout << "Invalid input" << endl;
             break;
         }
-    } while (uInput != 5);
+    } while (uInput != 8);
 }
 
 int main()
