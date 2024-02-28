@@ -39,6 +39,7 @@ void SinglyCircularLinkedList::insertAtFront(int value)
     {
         head = newNode;
         tail = head;
+        newNode->next=newNode;
     }
     else
     {
