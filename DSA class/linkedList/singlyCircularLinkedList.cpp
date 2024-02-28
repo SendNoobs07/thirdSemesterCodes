@@ -79,15 +79,21 @@ void SinglyCircularLinkedList::insertBetween(int value, int index)
     {
         Node *temp = head;
         int i = 1;
-        while (i < index)
+        while (i < index && temp->next != head)
         {
             temp = temp->next;
             i++;
         }
+        if (i != index)
+        {
+            cout << "Invalid position." << endl;
+            delete newNode; // Free memory if insertion fails
+            return;
+        }
         newNode->next = temp->next;
         temp->next = newNode;
     }
-    cout << newNode->data << " has been inserted" << endl;
+    cout << newNode->data << " has been inserted at position " << index << endl;
 }
 
 void SinglyCircularLinkedList::traverse()
@@ -105,7 +111,7 @@ void SinglyCircularLinkedList::traverse()
         {
             cout << temp->data << "->";
             temp = temp->next;
-        }while (temp != head);
+        } while (temp != head);
         cout << "NULL" << endl;
     }
 }
@@ -159,7 +165,7 @@ void SinglyCircularLinkedList::mainProcess()
             cout << "Invalid input" << endl;
             break;
         }
-    }while(uInput!=5);
+    } while (uInput != 5);
 }
 
 int main()
