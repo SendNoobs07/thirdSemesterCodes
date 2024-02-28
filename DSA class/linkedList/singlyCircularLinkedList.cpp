@@ -173,7 +173,7 @@ void SinglyCircularLinkedList::insertBetween(int value, int index)
     Node *newNode = new Node(value);
     if (checkHead() == 0) // 0 means null
     {
-        head = newNode; 
+        head = newNode;
         tail = newNode;
     }
     else
@@ -204,12 +204,11 @@ void SinglyCircularLinkedList::traverse()
     if (checkHead() == 0)
     {
         cout << "Can't traverse the list is empty." << endl;
-        return;
     }
     else
     {
-        cout << "The contents of the list are: " << endl;
         Node *temp = head;
+        cout << "The contents of the list are: " << endl;
         do
         {
             cout << temp->data << "->";
@@ -224,11 +223,9 @@ void SinglyCircularLinkedList::traverseFromBetween(int index) // this function i
     if (checkHead() == 0) // incase the list is empty
     {
         cout << "Can't traverse the list is empty." << endl;
-        return;
     }
     else
     {
-        cout << "The contents of the list from index " << index << " are: " << endl;
         Node *temp = head;
         int i = 1;
         while (i <= index) // traversing till we reach desired index
@@ -237,7 +234,8 @@ void SinglyCircularLinkedList::traverseFromBetween(int index) // this function i
             i++;
         }
         Node *indPoint = temp; // storing temp which points to desired index for stopping the loop
-        do                     // traversing from the index to
+        cout << "The contents of the list from index " << index << " are: " << endl;
+        do // traversing from the index to the element before index while printing it
         {
             cout << temp->data << "->";
             temp = temp->next;
