@@ -56,12 +56,12 @@ public:
             Node *temp = head;
             while (temp->next != NULL)
             {
-                temp=temp->next;
+                temp = temp->next;
             }
 
             newNode->previous = temp; // connecting new node with previous node
             temp->next = newNode;     // connecting tail node with new node
-            newNode->data = x; // assigning value to newNode's data
+            newNode->data = x;        // assigning value to newNode's data
         }
     }
 
@@ -100,7 +100,11 @@ public:
 
     void traversePrevious()
     {
-        Node *temp = tail;
+        Node *temp = head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
         cout << "NULL";
         while (temp != NULL)
         {
