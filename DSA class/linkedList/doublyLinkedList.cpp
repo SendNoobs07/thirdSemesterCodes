@@ -20,23 +20,20 @@ class DoublyLinkedList
 {
 public:
     Node *head = NULL;
-    Node *tail = NULL;
 
     void insertAtFront(int x)
     {
         Node *newNode = new Node;
 
-        if (head == NULL)
+        if (head == NULL) // assuming that there is only one element
         {
             head = newNode;
-            tail = newNode;
             newNode->data = x;
         }
         else // when there is already an element
         {
-            head->previous = newNode; // previous of head holds the address of newNode
-            newNode->next = head;     // while newNode's next holds value of current head
-
+            newNode->next = head; // while newNode's next holds value of current head
+            head->previous = newNode;
             head = newNode; // changing the head as new element is inserted at head(front)
 
             newNode->data = x; // putting value in new node could've also used
@@ -51,19 +48,20 @@ public:
         if (head == NULL) // first time insertion case
         {
             head = newNode;
-            tail = newNode;
             newNode->data = x;
         }
         else // when there is already an element
         {
             Node *newNode = new Node;
+            Node *temp = head;
+            while (temp->next != NULL)
+            {
+                temp=temp->next;
+            }
 
-            newNode->previous = tail; // connecting new node with previous node
-            tail->next = newNode;     // connecting tail node with new node
-
+            newNode->previous = temp; // connecting new node with previous node
+            temp->next = newNode;     // connecting tail node with new node
             newNode->data = x; // assigning value to newNode's data
-
-            tail = newNode; // finally pointing tail to newNode
         }
     }
 
@@ -109,7 +107,7 @@ public:
             cout << "<-" << temp->data;
             temp = temp->previous;
         }
-        cout<<endl;
+        cout << endl;
     }
 
     void mainProcess()
