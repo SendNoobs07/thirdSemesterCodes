@@ -30,7 +30,7 @@ bool Circular::isFull()
 
 bool Circular::isEmpty()
 {
-    if ((rear == -1 && front == -1) || (front > rear)) // default case
+    if (rear == -1 && front == -1 || rear == front) // default case
     {
         return 1;
     }
