@@ -60,7 +60,7 @@ public:
             }
 
             newNode->previous = temp; // connecting new node with previous node
-            temp->next = newNode;     // connecting tail node with new node
+            temp->next = newNode;     // connecting tail(temp) node with new node
             newNode->data = x;        // assigning value to newNode's data
         }
     }
