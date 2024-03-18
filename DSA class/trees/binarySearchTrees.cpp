@@ -182,6 +182,10 @@ public:
             temp = curr;
             temp = temp->childL; // selecting the left child of the node to delete
             temp = delFromLeftNodeFinder(temp);
+
+            curr->data = temp->data;
+
+            delete temp;
         }
     }
 };
