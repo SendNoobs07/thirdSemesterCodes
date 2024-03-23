@@ -3,7 +3,7 @@ using namespace std;
 
 class Node
 {
-protected:
+public:
     int data;
     Node *parent = NULL;
     Node *childL = NULL;
@@ -29,7 +29,7 @@ public:
 
 class BinarySearchTree
 {
-protected:
+public:
     Node *root = NULL;
     Node *curr = NULL;
     int val;
@@ -42,7 +42,7 @@ public:
 
     int checkChildOfNode(Node *temp) // to check the status of the node
     {
-        if ((temp->childL && temp->childR) == NULL) // assuming the node is leaf node
+        if ((temp->childL == NULL) && (temp->childR == NULL)) // assuming the node is leaf node
         {
             return 0;
         }
@@ -56,35 +56,7 @@ public:
         }
     }
 
-    // DONE CODE BELOW MYSELF
-    // Node *insertPlaceFinder(Node *temp) // root goes to temp
-    // {
-    //     if (checkChildOfNode(temp) == 0) // assuming current node has no child
-    //     {
-    //         return temp;
-    //     }
-    //     else if (val <= temp->data) // assuming value is less than or equal to current node
-    //     {
-    //         if (temp->childL == NULL) // incase current child has no left child
-    //         {
-    //             return temp;
-    //         }
-    //         temp = temp->childL;
-    //         temp = insert(temp);
-    //     }
-    //     else // assuming value is greater than current node
-    //     {
-    //         if (temp->childR == NULL) // incase current child has no right child
-    //         {
-    //             return temp;
-    //         }
-    //         temp = temp->childR;
-    //         temp = insert(temp);
-    //     }
-    //     return temp;
-    // }
-
-    Node *insertPlaceFinder(Node *temp) // root goes to temp
+    Node *insertNodeFinder(Node *temp) // root goes to temp
     {
         if (temp == NULL)
         {
@@ -94,19 +66,20 @@ public:
         {
             if (temp->childL == NULL)
             {
+                cout << "ON THE LEFT, Below " << temp->data << endl;
                 return temp;
             }
-            temp = insertPlaceFinder(temp->childL);
+            temp = insertNodeFinder(temp->childL);
         }
         else
         {
             if (temp->childR == NULL)
             {
+                cout << "ON THE RIGHT, Below " << temp->data << endl;
                 return temp;
             }
-            temp = insertPlaceFinder(temp->childR);
+            temp = insertNodeFinder(temp->childR);
         }
-
         return temp;
     }
 
@@ -116,7 +89,7 @@ public:
         {
             return NULL;
         }
-        else if (temp == val)
+        else if (temp->data == val)
         {
             return temp;
         }
@@ -133,7 +106,7 @@ public:
         }
     }
 
-    Node *delFromLeftNodeFinder(Node *temp) // to find greatest child to replace from left
+    Node *delFromLeftReplacementNodeFinder(Node *temp) // to find greatest child to replace from left
     {
         if (temp->childR == NULL)
         {
@@ -141,20 +114,28 @@ public:
         }
         else
         {
-            temp = delFromLeftNodeFinder(temp->childR);
+            temp = delFromLeftReplacementNodeFinder(temp->childR);
             return temp;
         }
     }
 
-    void insert()
+    void insert(int x)
     {
-        cout << "Enter value to insert: ";
-        cin >> val;
-        curr = insertPlaceFinder(root); // returns temp that points to the desired location
+        // cout << "Enter value to insert: ";
+        // cin >> val;
+
+        val = x;
+        curr = insertNodeFinder(root); // returns temp that points to the desired location
 
         Node *newNode = new Node;
 
-        if (val <= curr->data)
+        if (curr == NULL)
+        {
+            newNode->data = val;
+            root = newNode;
+            return;
+        }
+        else if (val <= curr->data)
         {
             curr->childL = newNode;
         }
@@ -164,9 +145,10 @@ public:
         }
         newNode->parent = curr;
         newNode->data = val;
+        cout << "Val is : " << newNode->data << endl;
     }
 
-    void delete()
+    void deleteFromTree()
     {
         cout << "Enter value to delete: ";
         cin >> val;
@@ -178,14 +160,68 @@ public:
         }
         else // assuming we replace deleted element with left child
         {
-            Node *temp = new Node;
-            temp = curr;
-            temp = temp->childL; // selecting the left child of the node to delete
-            temp = delFromLeftNodeFinder(temp);
+            Node *temp = curr->childL; // selecting the left child of the node to delete
+            temp = delFromLeftReplacementNodeFinder(temp);
 
             curr->data = temp->data;
-
             delete temp;
         }
     }
+
+    void preTraverse(Node *temp)
+    {
+        // CHECKING INSERTION PART
+        // Node *temp2 = temp;
+        // temp->data;
+        // cout << "20 : " << temp->data << endl;
+        // temp = temp->childL;
+        // cout << "5 : " << temp->data << endl;
+        // temp = temp->childR;
+        // cout << "17 : " << temp->data << endl;
+        // temp = temp->childL;
+        // cout << "8 : " << temp->data << endl;
+        // temp = temp->childR;
+        // cout << "9 : " << temp->data << endl;
+
+        if (temp == NULL)
+        {
+            cout << "Can't traverse the tree is empty." << endl;
+        }
+        else
+        {
+            cout << "Current Node: " << temp->data << endl;
+            if (temp->childL != NULL)
+            {
+                preTraverse(temp->childL);
+            }
+            else if (temp->childR != NULL)
+            {
+                preTraverse(temp->childR);
+            }
+            return;
+        }
+    }
+
+    void mainProcess()
+    {
+        insert(20);
+        insert(5);
+        insert(17);
+        insert(8);
+        insert(50);
+        insert(23);
+        insert(62);
+        insert(25);
+        insert(33);
+        insert(9);
+        insert(81);
+
+        preTraverse(root);
+    }
 };
+
+int main()
+{
+    BinarySearchTree b1;
+    b1.mainProcess();
+}
