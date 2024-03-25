@@ -114,6 +114,85 @@ public:
         cout << endl;
     }
 
+    void deleteFromFront()
+    {
+        if (head == NULL)
+        {
+            cout << "Can't delete the list is empty." << endl;
+        }
+        else
+        {
+            Node *temp = head;
+            if (head == tail)
+            {
+                head = NULL;
+                tail = NULL;
+            }
+            else
+            {
+                head = head->next;
+                head->previous = NULL;
+            }
+
+            delete temp;
+        }
+    }
+
+    void deleteFromBack()
+    {
+        if (head == NULL)
+        {
+            cout << "Can't delete the list is empty." << endl;
+        }
+        else
+        {
+            Node *temp = tail;
+            if (head == tail)
+            {
+                head = NULL;
+                tail = NULL;
+            }
+            else
+            {
+                tail = tail->previous;
+                tail->next = NULL;
+            }
+
+            delete temp;
+        }
+    }
+
+    void deleteFromBetween()
+    {
+        if (head == NULL)
+        {
+            cout << "Can't delete the list is empty." << endl;
+        }
+        else
+        {
+            int ind;
+            cout << "Enter an index to delete from: ";
+            cin >> ind;
+
+            Node *temp;
+            int i = 0;
+            for (i = 0, temp = head; (i < ind - 1) && (temp->next->next != head); i++, temp = temp->next)
+                ;
+            Node *toDel = temp->next;
+            if (temp->next->next == NULL)
+            {
+                temp->next = NULL;
+            }
+            else
+            {
+                temp->next = temp->next->next;
+                temp->next->next->previous = temp;
+            }
+
+            delete toDel;
+        }
+    }
+
     void mainProcess()
     {
         int uInput;
@@ -125,7 +204,10 @@ public:
                  << "3 ) Insert in between" << endl
                  << "4 ) Traverse from front" << endl
                  << "5 ) Traverse from back" << endl
-                 << "6 ) Exit the program" << endl;
+                 << "6 ) Delete from front" << endl
+                 << "7 ) Delete from back" << endl
+                 << "8 ) Delete from between" << endl
+                 << "9 ) Exit the program" << endl;
             cin >> uInput;
             switch (uInput)
             {
@@ -161,6 +243,18 @@ public:
                 break;
 
             case 6:
+                deleteFromFront();
+                break;
+
+            case 7:
+                deleteFromBack();
+                break;
+
+            case 8:
+                deleteFromBetween();
+                break;
+
+            case 9:
                 cout << "Program is exiting..." << endl;
                 break;
 
@@ -168,7 +262,7 @@ public:
                 cout << "Invalid input" << endl;
                 break;
             }
-        } while (uInput != 6);
+        } while (uInput != 9);
     }
 };
 
