@@ -52,7 +52,6 @@ public:
         }
         else // when there is already an element
         {
-            Node *newNode = new Node;
             Node *temp = head;
             while (temp->next != NULL)
             {
@@ -95,7 +94,7 @@ public:
             cout << temp->data << "->";
             temp = temp->next;
         }
-        cout << "NULL";
+        cout << "NULL" << endl;
     }
 
     void traversePrevious()
@@ -123,10 +122,9 @@ public:
         else
         {
             Node *temp = head;
-            if (head == tail)
+            if (head->next == NULL)
             {
                 head = NULL;
-                tail = NULL;
             }
             else
             {
@@ -146,16 +144,18 @@ public:
         }
         else
         {
-            Node *temp = tail;
-            if (head == tail)
+            Node *temp = head;
+            if (head->next == NULL)
             {
                 head = NULL;
-                tail = NULL;
             }
             else
             {
-                tail = tail->previous;
-                tail->next = NULL;
+                while (temp->next->next != NULL)
+                {
+                    temp = temp->next;
+                }
+                temp->next = NULL;
             }
 
             delete temp;
@@ -186,7 +186,7 @@ public:
             else
             {
                 temp->next = temp->next->next;
-                temp->next->next->previous = temp;
+                temp->next->previous = temp;
             }
 
             delete toDel;
@@ -269,5 +269,15 @@ public:
 int main()
 {
     DoublyLinkedList d1;
-    d1.mainProcess();
+    // d1.mainProcess();
+    d1.insertAtFront(9);
+    d1.insertAtBack(8);
+    d1.insertAtBack(7);
+    d1.insertAtBack(6);
+    d1.insertAtBack(5);
+    d1.traverseNext();
+    d1.insertAtFront(10);
+    d1.traversePrevious();
+    d1.deleteFromBetween();
+    d1.traverseNext();
 }
