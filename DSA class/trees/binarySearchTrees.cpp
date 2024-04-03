@@ -17,14 +17,6 @@ public:
         this->childR = NULL;
         this->data = 0;
     }
-
-    Node(Node &n1) // to replace node we use copy constructor for easy use
-    {
-        this->parent = n1.parent;
-        this->childL = n1.childL;
-        this->childR = n1.childR;
-        // we replace everything except the data
-    }
 };
 
 class BinarySearchTree
@@ -106,7 +98,7 @@ public:
         }
     }
 
-    Node *delFromLeftReplacementNodeFinder(Node *temp) // to find greatest child to replace from left
+    Node *leftReplacementNodeFinderForDel(Node *temp) // to find greatest child to replace from left
     {
         if (temp->childR == NULL)
         {
@@ -114,7 +106,7 @@ public:
         }
         else
         {
-            temp = delFromLeftReplacementNodeFinder(temp->childR);
+            temp = leftReplacementNodeFinderForDel(temp->childR);
             return temp;
         }
     }
@@ -148,10 +140,11 @@ public:
         cout << "Val is : " << newNode->data << endl;
     }
 
-    void deleteFromTree()
+    void deleteFromTree(int val)
     {
-        cout << "Enter value to delete: ";
-        cin >> val;
+        // cout << "Enter value to delete: ";
+        // cin >> val;
+        this->val = val;
         curr = deletePlaceFinder(root);
 
         if (curr == NULL)
@@ -161,31 +154,20 @@ public:
         else // assuming we replace deleted element with left child
         {
             Node *temp = curr->childL; // selecting the left child of the node to delete
-            temp = delFromLeftReplacementNodeFinder(temp);
+            temp = leftReplacementNodeFinderForDel(temp);
 
             curr->data = temp->data;
+            temp->parent->childR = NULL;
             delete temp;
         }
     }
 
     void preTraverse(Node *temp)
     {
-        // CHECKING INSERTION PART
-        // Node *temp2 = temp;
-        // temp->data;
-        // cout << "20 : " << temp->data << endl;
-        // temp = temp->childL;
-        // cout << "5 : " << temp->data << endl;
-        // temp = temp->childR;
-        // cout << "17 : " << temp->data << endl;
-        // temp = temp->childL;
-        // cout << "8 : " << temp->data << endl;
-        // temp = temp->childR;
-        // cout << "9 : " << temp->data << endl;
-
         if (temp == NULL)
         {
             cout << "Can't traverse the tree is empty." << endl;
+            return;
         }
         else
         {
@@ -194,7 +176,7 @@ public:
             {
                 preTraverse(temp->childL);
             }
-            else if (temp->childR != NULL)
+            if (temp->childR != NULL)
             {
                 preTraverse(temp->childR);
             }
@@ -216,6 +198,9 @@ public:
         insert(9);
         insert(81);
 
+        preTraverse(root);
+
+        deleteFromTree(50);
         preTraverse(root);
     }
 };
