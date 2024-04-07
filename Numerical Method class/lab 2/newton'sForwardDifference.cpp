@@ -15,7 +15,7 @@ float Villain(float s,int i){
     }else if(i==1){
         return s;
     }else{
-        float x=(s-i+1)*Hero(s,i-1);
+        float x=(s-i+1)*Villain(s,i-1);
         //return x;
         return x/tgamma(i + 1);
     }
