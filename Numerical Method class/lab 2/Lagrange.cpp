@@ -21,7 +21,7 @@ float lower(int i,float X[],float Y[],float x,int counter){
         if(i==steps){
             continue;
         } else{
-            result=result*(x-X[steps]);
+            result=result*(x[i]-X[steps]);
         }
     }
     cout<<"Lower: "<<result<<endl;
