@@ -24,7 +24,7 @@ float Villain(float s,int i){
 float formula(float data[],int counter, float s){
     float y=0;
     for(int i=0;i<counter;i++){
-        y=y+Hero(s,i)*data[i];
+        y=y+Villain(s,i)*data[i];
     }
     return y;
 }
