@@ -9,7 +9,7 @@ void calculate(float Ynew[],int i,int counter){
     cout<<endl;
 }
 
-float Hero(float s,int i){
+float Villain(float s,int i){
     if(i==0){
         return 1;
     }else if(i==1){
