@@ -24,7 +24,7 @@ void simpson(){
     h = (b - a) / n;
     double sum = f(a) + f(b); // y0 and yn are added once
 
-    for(int i = 1; i < n; i++) {
+    for(int i = 1; i < n-1; i++) {
         double x = a + i * h;
         if(i % 3 == 0) {
             sum += 2 * f(x); // Even index terms have a coefficient of 2
